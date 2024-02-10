@@ -48,62 +48,63 @@ class MiscCommands(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-        embed = nextcord.Embed(
-            title='__Commands__',
-            description='These are the commands for the bot.',
-            color=nextcord.Color.from_rgb(47, 49, 54),
-        )
-    
-        embed.set_author(name="By Kiryu Kazuma and Darkin")
-    
-        embed.add_field(name='__Fun Commands__', value='Commands that are for fun', inline=False)     
-        embed.add_field(name='l!dad', value='Roasts you for being a dumbass and thinking you have a dad.', inline=False)
-    
-        embed.add_field(name='l!bakamitai', value='Show\'s a video about kiryu singing baka mitai', inline=False)     
-        embed.add_field(name='l!awakening', value='Show\'s a video about Kiryu\'s Legend Style "Dragon of Dojima" first appearance.', inline=False)     
-        embed.add_field(name='l!sugarcoat', value='Show\'s a video about kiryu singing baka mitai', inline=False)     
-        embed.add_field(name='l!egg', value='An egg command, pretty self explanatory', inline=False)     
-        embed.add_field(name='l!kys', value='A command that shows low tier god roasting you', inline=False)     
-        embed.add_field(name='l!tys', value='A command that shows low tier god complimenting you', inline=False)     
-        embed.add_field(name='l!notsugarcoating', value='Show\'s a video of Kiryu not sugarcoating against majima', inline=False)     
-        embed.add_field(name='l!scream', value='Show\'s a video singing today is a diamond but kiryu screaming credits to takayuki yagami for this idea', inline=False)     
-        embed.add_field(name='l!roll', value='Rolls from a number to another number, pretty self explanatory', inline=False)                         
-        embed.add_field(name='l!ip', value='Show\'s a video of captain underpants dancing while grabbing your ip', inline=False)     
-        embed.add_field(name='l!china', value='Show\'s a video about the meme "China Airlines"', inline=False)   
-        embed.add_field(name='l!dance', value='Show\'s 2 videos about kiryu dancing', inline=False)   
-        embed.add_field(name='l!disagree', value='Show\'s a gif of ichiban not agreeing to your opinion', inline=False)   
-        embed.add_field(name='l!yakuzillionaire', value='Show\'s a video of a meme of "yakuzillionaire"', inline=False)     
-        embed.add_field(name='l!yakuza_fans', value='Show\'s a video of yakuza fans', inline=False)     
-        embed.add_field(name='l!fact', value='Show\'s a random fact about the world.', inline=False)     
-        embed.add_field(name='l!intro', value='Show\'s a video about kiryu\'s first appearance in Yakuza 7.', inline=False)     
-        embed.add_field(name='l!joke', value='Tells you a random joke.', inline=False)     
-        embed.add_field(name='l!solve', value='Solve\'s any math problem, it only supports multiplication, addition and division. For multiplication you\'ll you have to use an asterisk "*" ', inline=False)     
-        embed.add_field(name='l!train', value='Show\'s a video about an edit of the A-Train', inline=False)     
-        embed.add_field(name='l!n_word', value='Show\'s a video about the meme spot becoming black and saying ni-', inline=False)     
-        embed.add_field(name='l!honestreaction', value='Show\'s a video about "My Honest Reaction 🗿"', inline=False)
-    
-        embed2 = nextcord.Embed(
-            title='__Admin Commands__',
-            description='Moderation commands for this bot.',
-            color=nextcord.Color.from_rgb(47, 49, 54),
-        )
-        embed2.add_field(name='l!ban', value='Bans a member, self explanatory', inline=False)     
-        embed2.add_field(name='l!kick', value='Pretty self explanatory', inline=False)     
-        embed2.add_field(name='l!warn', value='Warns a member, if a member gets 3 warns they will get kicked if they get 6 warns they will get banned.', inline=False)     
-        embed2.add_field(name='l!clearwarns', value='Clear\'s the warns of a user', inline=False)     
-        embed2.add_field(name='l!lock', value='Locks a channel', inline=False)     
-        embed2.add_field(name='l!unlock', value='Unlocks a channel', inline=False)     
-        embed2.add_field(name='l!addrole', value='Add\'s a role to a user', inline=False)     
-        embed2.add_field(name='l!removerole', value='Remove\'s a role from a user', inline=False)     
-        embed2.add_field(name='l!slowmode', value='Add\'s a slowmode to a channel', inline=False)     
-        embed2.add_field(name='l!clear', value='Clear\'s a specified amount of messages', inline=False)
-    
-        await ctx.author.send(embed=embed)
-        await ctx.author.send(embed=embed2)
-    
-        await ctx.send('Check your dms')
-    except nextcord.Forbidden:
-        await ctx.send('Bro your dms closed')
+        try:
+            embed = nextcord.Embed(
+                title='__Commands__',
+                description='These are the commands for the bot.',
+                color=nextcord.Color.from_rgb(47, 49, 54),
+            )
+        
+            embed.set_author(name="By Kiryu Kazuma and Darkin")
+        
+            embed.add_field(name='__Fun Commands__', value='Commands that are for fun', inline=False)     
+            embed.add_field(name='l!dad', value='Roasts you for being a dumbass and thinking you have a dad.', inline=False)
+        
+            embed.add_field(name='l!bakamitai', value='Show\'s a video about kiryu singing baka mitai', inline=False)     
+            embed.add_field(name='l!awakening', value='Show\'s a video about Kiryu\'s Legend Style "Dragon of Dojima" first appearance.', inline=False)     
+            embed.add_field(name='l!sugarcoat', value='Show\'s a video about kiryu singing baka mitai', inline=False)     
+            embed.add_field(name='l!egg', value='An egg command, pretty self explanatory', inline=False)     
+            embed.add_field(name='l!kys', value='A command that shows low tier god roasting you', inline=False)     
+            embed.add_field(name='l!tys', value='A command that shows low tier god complimenting you', inline=False)     
+            embed.add_field(name='l!notsugarcoating', value='Show\'s a video of Kiryu not sugarcoating against majima', inline=False)     
+            embed.add_field(name='l!scream', value='Show\'s a video singing today is a diamond but kiryu screaming credits to takayuki yagami for this idea', inline=False)     
+            embed.add_field(name='l!roll', value='Rolls from a number to another number, pretty self explanatory', inline=False)                         
+            embed.add_field(name='l!ip', value='Show\'s a video of captain underpants dancing while grabbing your ip', inline=False)     
+            embed.add_field(name='l!china', value='Show\'s a video about the meme "China Airlines"', inline=False)   
+            embed.add_field(name='l!dance', value='Show\'s 2 videos about kiryu dancing', inline=False)   
+            embed.add_field(name='l!disagree', value='Show\'s a gif of ichiban not agreeing to your opinion', inline=False)   
+            embed.add_field(name='l!yakuzillionaire', value='Show\'s a video of a meme of "yakuzillionaire"', inline=False)     
+            embed.add_field(name='l!yakuza_fans', value='Show\'s a video of yakuza fans', inline=False)     
+            embed.add_field(name='l!fact', value='Show\'s a random fact about the world.', inline=False)     
+            embed.add_field(name='l!intro', value='Show\'s a video about kiryu\'s first appearance in Yakuza 7.', inline=False)     
+            embed.add_field(name='l!joke', value='Tells you a random joke.', inline=False)     
+            embed.add_field(name='l!solve', value='Solve\'s any math problem, it only supports multiplication, addition and division. For multiplication you\'ll you have to use an asterisk "*" ', inline=False)     
+            embed.add_field(name='l!train', value='Show\'s a video about an edit of the A-Train', inline=False)     
+            embed.add_field(name='l!n_word', value='Show\'s a video about the meme spot becoming black and saying ni-', inline=False)     
+            embed.add_field(name='l!honestreaction', value='Show\'s a video about "My Honest Reaction 🗿"', inline=False)
+        
+            embed2 = nextcord.Embed(
+                title='__Admin Commands__',
+                description='Moderation commands for this bot.',
+                color=nextcord.Color.from_rgb(47, 49, 54),
+            )
+            embed2.add_field(name='l!ban', value='Bans a member, self explanatory', inline=False)     
+            embed2.add_field(name='l!kick', value='Pretty self explanatory', inline=False)     
+            embed2.add_field(name='l!warn', value='Warns a member, if a member gets 3 warns they will get kicked if they get 6 warns they will get banned.', inline=False)     
+            embed2.add_field(name='l!clearwarns', value='Clear\'s the warns of a user', inline=False)     
+            embed2.add_field(name='l!lock', value='Locks a channel', inline=False)     
+            embed2.add_field(name='l!unlock', value='Unlocks a channel', inline=False)     
+            embed2.add_field(name='l!addrole', value='Add\'s a role to a user', inline=False)     
+            embed2.add_field(name='l!removerole', value='Remove\'s a role from a user', inline=False)     
+            embed2.add_field(name='l!slowmode', value='Add\'s a slowmode to a channel', inline=False)     
+            embed2.add_field(name='l!clear', value='Clear\'s a specified amount of messages', inline=False)
+        
+            await ctx.author.send(embed=embed)
+            await ctx.author.send(embed=embed2)
+        
+            await ctx.send('Check your dms')
+        except nextcord.Forbidden:
+            await ctx.send('Bro your dms closed')
         
     @nextcord.slash_command(name="joke", description="Tells a random joke.")
     async def joke_slash(self, interaction: nextcord.Interaction):
