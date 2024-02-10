@@ -12,7 +12,7 @@ class ModerationCog(commands.Cog):
     async def clear(self, ctx, amount: int):
         await ctx.channel.purge(limit=amount+1)  # +1 to include the command message itself
 
-    @commands.slash_command(name="clear", description="Clears a specific number of messages from a channel")
+    @bot.slash_command(name="clear", description="Clears a specific number of messages from a channel")
     @commands.has_permissions(manage_messages=True)
     async def slash_clear(self, ctx: nextcord.Interaction, amount: int):
         await ctx.channel.purge(limit=amount)  # Slash command message won't be counted
@@ -41,19 +41,19 @@ class ModerationCog(commands.Cog):
         await asyncio.sleep(seconds)
         await member.remove_roles(role)
 
-    @commands.slash_command(name="ban", description="Bans a member from the server")
+    @bot.slash_command(name="ban", description="Bans a member from the server")
     @commands.has_permissions(ban_members=True)
     async def slash_ban(self, ctx: nextcord.Interaction, member: nextcord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'User {member} has been banned')
 
-    @commands.slash_command(name="kick", description="Kicks a member from the server")
+    @bot.slash_command(name="kick", description="Kicks a member from the server")
     @commands.has_permissions(kick_members=True)
     async def slash_kick(self, ctx: nextcord.Interaction, member: nextcord.Member, *, reason=None):
         await member.kick(reason=reason)
         await ctx.send(f'User {member} has been kicked')
 
-    @commands.slash_command(name="timeout", description="Times out a member for a specified number of seconds")
+    @bot.slash_command(name="timeout", description="Times out a member for a specified number of seconds")
     @commands.has_permissions(manage_messages=True)
     async def slash_timeout(self, ctx: nextcord.Interaction, member: nextcord.Member, seconds: int):
         role = nextcord.utils.get(ctx.guild.roles, name="Timeout")
@@ -72,7 +72,7 @@ class ModerationCog(commands.Cog):
         await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
         await ctx.send("Channel locked.")
 
-    @commands.slash_command(name="lock", description="Locks the current channel")
+    @bot.slash_command(name="lock", description="Locks the current channel")
     @commands.has_permissions(manage_channels=True)
     async def slash_lock(self, ctx: nextcord.Interaction):
         await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
@@ -94,7 +94,7 @@ class ModerationCog(commands.Cog):
         else:
             await ctx.send(f'User {member} has been warned. They now have {self.warn_count[member]} warnings')
 
-    @commands.slash_command(name="warn", description="Warns a user. 3 warnings = kick, 6 warnings = ban")
+    @bot.slash_command(name="warn", description="Warns a user. 3 warnings = kick, 6 warnings = ban")
     @commands.has_permissions(kick_members=True, ban_members=True)
     async def slash_warn(self, ctx: nextcord.Interaction, member: nextcord.Member, *, reason=None):
         if member not in self.warn_count:
