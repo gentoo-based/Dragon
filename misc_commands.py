@@ -48,7 +48,6 @@ class MiscCommands(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-    try:
         embed = nextcord.Embed(
             title='__Commands__',
             description='These are the commands for the bot.',
