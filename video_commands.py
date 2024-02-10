@@ -14,7 +14,7 @@ class vidss(commands.Cog):
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
 
-    @commands.Bot.slash_command(name="video", description="Sends a video.")
+    @commands.slash_command(name="video", description="Sends a video.")
     async def video_slash(self, interaction: nextcord.Interaction, video_filename: Option(str, "The name of the video file to send")):
         try:
             video_file = nextcord.File(f'{video_filename}', filename=f'{video_filename}')
