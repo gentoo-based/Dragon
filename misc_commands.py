@@ -12,7 +12,7 @@ class MiscCommands(commands.Cog):
         await ctx.message.delete()
         await ctx.send(f"{message}")
 
-    @commands.slash_command( name="echo", description="Echoes your message back to you.")
+    @commands.slash_command(name="echo", description="Echoes your message back to you.")
     async def echo_slash(self, interaction: nextcord.Interaction, message: Option(str, "The message to echo")):
         await interaction.response.send_message(f"{message}")
     @commands.command()
@@ -106,17 +106,17 @@ class MiscCommands(commands.Cog):
     except nextcord.Forbidden:
         await ctx.send('Bro your dms closed')
         
-    @commands.slash_command( name="joke", description="Tells a random joke.")
+    @commands.slash_command(name="joke", description="Tells a random joke.")
     async def joke_slash(self, interaction: nextcord.Interaction):
         jokes = ["Why don't scientists trust atoms? Because they make up everything!", "Why did the chicken go to the seance? To talk to the other side!"]
         await interaction.response.send_message(random.choice(jokes))
 
-    @commands.slash_command( name="fact", description="Tells a random fact.")
+    @commands.slash_command(name="fact", description="Tells a random fact.")
     async def fact_slash(self, interaction: nextcord.Interaction):
         facts = ["Did you know? The Eiffel Tower can be 15 cm taller during the summer.", "Did you know? Honey never spoils."]
         await interaction.response.send_message(random.choice(facts))
 
-    @commands.slash_command( name="roast", description="Tells a friendly roast.")
+    @commands.slash_command(name="roast", description="Tells a friendly roast.")
     async def roast_slash(self, interaction: nextcord.Interaction, member: nextcord.Member):
         roasts = [
             "u so ugly china ate u instead of dogs",
@@ -129,7 +129,7 @@ class MiscCommands(commands.Cog):
         await ctx.send(f"{member.mention} {roast}")
 
 
-    @commands.slash_command( name="about", description="Shows information about the bot.")
+    @commands.slash_command(name="about", description="Shows information about the bot.")
     async def about_slash(self, interaction: nextcord.Interaction):
         embed = nextcord.Embed(title="About the Bot", description="This is a fun yakuza bot that supports a lot of commands.", color=nextcord.Color.blue())
         embed.add_field(name="Version", value="3.5.2", inline=False)
@@ -137,7 +137,7 @@ class MiscCommands(commands.Cog):
         embed.add_field(name="Hosted by", value="https://render.com", inline=False)
         await interaction.response.send_message(embed=embed)
 
-    @commands.slash_command( name="help", description="Shows the list of commands.")
+    @commands.slash_command(name="help", description="Shows the list of commands.")
     async def help_slash(self, interaction: nextcord.Interaction):
     try:
         embed = nextcord.Embed(
@@ -201,7 +201,7 @@ class MiscCommands(commands.Cog):
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
 
-    @commands.slash_command( name="solve", description="Solves a math expression.")
+    @commands.slash_command(name="solve", description="Solves a math expression.")
     async def solve_slash(self, interaction: nextcord.Interaction, math_expression: Option(str, "The math expression to solve")):
         try:
             result = eval(math_expression)
