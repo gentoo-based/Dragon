@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from commands import Option
+from nextcord.ext.commands import Option
 import random
 
 class MiscCommands(commands.Cog):
