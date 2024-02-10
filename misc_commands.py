@@ -1,6 +1,5 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord.ext.commands import Option
 import random
 
 class MiscCommands(commands.Cog):
@@ -13,7 +12,7 @@ class MiscCommands(commands.Cog):
         await ctx.send(f"{message}")
 
     @nextcord.slash_command(name="echo", description="Echoes your message back to you.")
-    async def echo_slash(self, interaction: nextcord.Interaction, message: Option(str, "The message to echo")):
+    async def echo_slash(self, interaction: nextcord.Interaction, message: str):
         await interaction.response.send_message(f"{message}")
     @commands.command()
     async def joke(self, ctx):
