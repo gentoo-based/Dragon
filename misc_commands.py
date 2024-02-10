@@ -139,7 +139,6 @@ class MiscCommands(commands.Cog):
 
     @nextcord.slash_command(name="help", description="Shows the list of commands.")
     async def help_slash(self, interaction: nextcord.Interaction):
-    try:
         embed = nextcord.Embed(
             title='__Commands__',
             description='These are the commands for the bot.',
