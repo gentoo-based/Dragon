@@ -200,7 +200,7 @@ class MiscCommands(commands.Cog):
             await ctx.send(f"An error occurred: {str(e)}")
 
     @nextcord.slash_command(name="solve", description="Solves a math expression.")
-    async def solve_slash(self, interaction: nextcord.Interaction, math_expression: Option(str, "The math expression to solve")):
+    async def solve_slash(self, interaction: nextcord.Interaction, math_expression: str):
         try:
             result = eval(math_expression)
             await interaction.response.send_message(f"The result is: {result}")
