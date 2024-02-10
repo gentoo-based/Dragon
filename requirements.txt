@@ -1,2 +1,4 @@
 nextcord
 flask
+typing
+python-dotenv
