@@ -7,6 +7,7 @@ class MiscCommands(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.is_owner()
     async def echo(self, ctx, *, message: str):
         await ctx.message.delete()
         await ctx.send(f"{message}")
