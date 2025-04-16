@@ -8,38 +8,6 @@ class ModerationCog(commands.Cog):
         self.warn_count = {}
 
     @commands.command()
-    @commands.has_permissions(manage_messages=True)
-    @commands.bot_has_permissions(manage_messages=True)
-    async def clear(self, ctx, amount: int):
-        """Clears a specific number of messages from a channel."""
-        try:
-            if amount <= 0:
-                await ctx.send("Please provide a positive number of messages to clear.")
-                return
-            await ctx.channel.purge(limit=amount + 1)  # +1 to include the command message itself
-            await ctx.send(f"Cleared {amount} messages.", delete_after=5)
-        except nextcord.errors.Forbidden:
-            await ctx.send("Error: I do not have permissions to manage messages in this channel.")
-        except nextcord.errors.HTTPException as e:
-            await ctx.send(f"Error clearing messages: {e}")
-
-    @nextcord.slash_command(name="clear", description="Clears a specific number of messages from a channel")
-    @commands.has_permissions(manage_messages=True)
-    @commands.bot_has_permissions(manage_messages=True)
-    async def slash_clear(self, interaction: nextcord.Interaction, amount: int):
-        """Clears a specific number of messages from a channel (slash command)."""
-        try:
-            if amount <= 0:
-                await interaction.response.send_message("Please provide a positive number of messages to clear.", ephemeral=True)
-                return
-            await interaction.channel.purge(limit=amount)  # Slash command message won't be counted
-            await interaction.response.send_message(f"Cleared {amount} messages.", ephemeral=True)
-        except nextcord.errors.Forbidden:
-            await interaction.response.send_message("Error: I do not have permissions to manage messages in this channel.", ephemeral=True)
-        except nextcord.errors.HTTPException as e:
-            await interaction.response.send_message(f"Error clearing messages: {e}", ephemeral=True)
-
-    @commands.command()
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def ban(self, ctx, member: nextcord.Member, *, reason=None):
@@ -405,6 +373,7 @@ class ModerationCog(commands.Cog):
     
     @commands.command(aliases=['clear'])
     @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
         """Purges a specified number of messages from the channel."""
         try:
@@ -423,6 +392,7 @@ class ModerationCog(commands.Cog):
 
     @nextcord.slash_command(name="purge", description="Deletes a specified number of messages.")
     @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     async def purge_slash(self, interaction: nextcord.Interaction, amount: int = nextcord.SlashOption(description="The number of messages to delete.")):
         """Purges a specified number of messages from the channel (slash command)."""
         try:
