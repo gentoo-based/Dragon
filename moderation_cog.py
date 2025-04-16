@@ -393,7 +393,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="purge", description="Deletes a specified number of messages.")
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
-    async def purge_slash(self, interaction: nextcord.Interaction, amount: int = nextcord.SlashOption(description="The number of messages to delete.")):
+    async def purge_slash(self, interaction: nextcord.Interaction, amount: int):
         """Purges a specified number of messages from the channel (slash command)."""
         try:
             if amount <= 0:
