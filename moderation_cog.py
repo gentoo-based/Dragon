@@ -402,6 +402,42 @@ class ModerationCog(commands.Cog):
         except Exception as e:
             print(f"An unexpected error occurred in slash_clearwarns command: {e}")
             await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
+    
+    @commands.command(aliases=['clear'])
+    @commands.has_permissions(manage_messages=True)
+    async def purge(self, ctx, amount: int):
+        """Purges a specified number of messages from the channel."""
+        try:
+            if amount <= 0:
+                await ctx.send("Please specify a positive number of messages to delete.")
+                return
+            deleted = await ctx.channel.purge(limit=amount + 1)  # +1 to account for the command message itself
+            await ctx.send(f"Successfully purged {len(deleted) - 1} messages.", delete_after=5)
+        except nextcord.Forbidden:
+            await ctx.send("Error: I do not have permissions to manage messages in this channel.")
+        except nextcord.HTTPException as e:
+            await ctx.send(f"Error occurred while purging messages: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred in purge command: {e}")
+            await ctx.send("An unexpected error occurred.")
 
+    @nextcord.slash_command(name="purge", description="Deletes a specified number of messages.")
+    @commands.has_permissions(manage_messages=True)
+    async def purge_slash(self, interaction: nextcord.Interaction, amount: int = nextcord.SlashOption(description="The number of messages to delete.")):
+        """Purges a specified number of messages from the channel (slash command)."""
+        try:
+            if amount <= 0:
+                await interaction.response.send_message("Please specify a positive number of messages to delete.", ephemeral=True)
+                return
+            await interaction.response.defer(ephemeral=True)  # Acknowledge the command as purge can take time
+            deleted = await interaction.channel.purge(limit=amount)
+            await interaction.followup.send(f"Successfully purged {len(deleted)} messages.", ephemeral=True)
+        except nextcord.Forbidden:
+            await interaction.followup.send("Error: I do not have permissions to manage messages in this channel.", ephemeral=True)
+        except nextcord.HTTPException as e:
+            await interaction.followup.send(f"Error occurred while purging messages: {e}", ephemeral=True)
+        except Exception as e:
+            print(f"An unexpected error occurred in purge_slash command: {e}")
+            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
 def setup(bot):
     bot.add_cog(ModerationCog(bot))

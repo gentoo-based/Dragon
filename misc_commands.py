@@ -2,6 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import random
 import sympy
+from sympy import Symbol, diff, integrate
 from sympy.parsing.mathematica import parse_mathematica
 
 class MiscCommands(commands.Cog):
@@ -138,21 +139,28 @@ class MiscCommands(commands.Cog):
 
     @commands.command()
     async def about(self, ctx):
-        """Shows information about the bot."""
+        """Shows information about the bot"""
         try:
             embed = nextcord.Embed(
                 title="About the Bot",
-                description="This is a fun bot with various commands.",
+                description="""This is a fun bot with various commands.
+
+                **Version**
+                3.5.4
+
+                **Author**
+                Made by <@1221614686865461259>
+
+                **Hosted by**
+                https://github.com/
+                """,
                 color=nextcord.Color.blue()
             )
-            embed.add_field(name="Version", value="3.5.4", inline=False)
-            embed.add_field(name="Author", value="Kiryu Kazuma & Darkin", inline=False)
-            embed.add_field(name="Hosted by", value="Render.com & GitHub", inline=False)
             await ctx.send(embed=embed)
         except nextcord.HTTPException as e:
             await ctx.send(f"Error occurred while sending embed: {e}")
         except Exception as e:
-            print(f"An unexpected error occurred in about command: {e}")
+            print(f"An unexpected error occurred in about_slash command: {e}")
             await ctx.send("An unexpected error occurred.")
 
     @nextcord.slash_command(name="about", description="Shows information about the bot.")
@@ -188,13 +196,13 @@ class MiscCommands(commands.Cog):
             description = """
 __Fun Commands__
 Commands for entertainment.
-`l!dad`: A silly command.
 `l!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
 `l!joke`: Tells a random joke.
 `l!fact`: Shows a random fact.
 `l!roast <@member>`: Roasts the mentioned member.
-`l!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions).
-`l!honestreaction`: Shows a video about "My Honest Reaction 🗿". (Note: This command is not implemented in this cog)
+`l!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
+`l!video`: Sends any video in the bot's repository.
+`l!purge <amount>`: Deletes a specified number of messages.
 
 __Admin Commands__
 Moderation commands for server management.
@@ -230,54 +238,115 @@ Moderation commands for server management.
     @nextcord.slash_command(name="help", description="Shows the list of commands privately.")
     async def help_slash(self, interaction: nextcord.Interaction):
         """Shows the list of commands privately."""
-        try:
-            description = """
+
+        description = """
 __Fun Commands__
-Commands that are for fun
-`/dad`: A silly command.
-`/roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
-`/fact`: Shows a random fact about the world.
-`/joke`: Tells you a random joke.
-`/roast <user>`: Tells a friendly roast.
-`/solve <expression>`: Solves a mathematical expression.
-`/train`: Show's a video about an edit of the A-Train
+Commands for entertainment.
+`l!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
+`l!joke`: Tells a random joke.
+`l!fact`: Shows a random fact.
+`l!roast <@member>`: Roasts the mentioned member.
+`l!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
+`l!video`: Sends any video in the bot's repository.
+`l!purge <amount>`: Deletes a specified number of messages.
+
 __Admin Commands__
-Moderation commands for this bot.
-`/ban <user> [reason]`: Bans a member, self explanatory
-`/kick <user> [reason]`: Pretty self explanatory
-`/warn <user> [reason]`: Warns a member, if a member gets 3 warns they will get kicked if they get 6 warns they will get banned.
-`/clearwarns <user>`: Clear's the warns of a user
-`/lock`: Locks a channel
-`/unlock`: Unlocks a channel
-`/addrole <user> <role>`: Add's a role to a user
-`/removerole <user> <role>`: Remove's a role from a user
-`/slowmode <seconds>`: Add's a slowmode to a channel
-`/clear <amount>`: Clear's a specified amount of messages
+Moderation commands for server management.
+`l!ban <@member> [reason]`: Bans a member from the server.
+`l!kick <@member> [reason]`: Kicks a member from the server.
+`l!warn <@member> [reason]`: Warns a member.
+`l!clearwarns <@member>`: Clears the warnings of a user.
+`l!lock`: Locks the current channel.
+`l!unlock`: Unlocks the current channel.
+`l!addrole <@member> <role name>`: Adds a role to a user.
+`l!removerole <@member> <role name>`: Removes a role from a user.
+`l!slowmode <seconds>`: Sets a slow mode for the channel.
+`l!clear <amount>`: Clears a specified number of messages.
 """
 
-            embed = nextcord.Embed(
-                title='__Commands__',
-                description=description,
-                color=nextcord.Color.from_rgb(47, 49, 54),
-            )
+        embed = nextcord.Embed(
+            title='__Commands__',
+            description=description,
+            color=nextcord.Color.from_rgb(47, 49, 54),
+        )
+        embed.set_author(name="By Kiryu Kazuma and Darkin")
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.followup.send("A help message with a list of commands has been sent to you privately!", ephemeral=True)
 
-            embed.set_author(name="By Kiryu Kazuma and Darkin")
+    @nextcord.slash_command(name="solve", description="Solves mathematical expressions.")
+    async def solve_slash(self, interaction: nextcord.Interaction):
+        pass  # This is the parent command, subcommands will be added here
 
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-            await interaction.followup.send("A help message with a list of commands has been sent to you privately!", ephemeral=True)
-        except nextcord.HTTPException as e:
-            await interaction.followup.send(f"Error occurred while sending embed or message: {e}", ephemeral=True)
+    @solve_slash.subcommand(name="algebra", description="Solves algebraic expressions.")
+    async def solve_algebra(self, interaction: nextcord.Interaction, expression: str):
+        """Solves algebraic expressions via a slash command."""
+        try:
+            result = sympy.sympify(expression).evalf()
+            await interaction.response.send_message(f"The result is: {result}")
+        except (sympy.parsing.mathematica.UnrecognizedSymbolException, sympy.SympifyError) as e:
+            await interaction.response.send_message(f"Invalid algebraic expression: {e}")
         except Exception as e:
-            print(f"An unexpected error occurred in help_slash command: {e}")
-            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
+            await interaction.response.send_message(f"An unexpected error occurred: {e}")
+
+    @solve_slash.subcommand(name="calculus", description="Solves calculus problems.")
+    async def solve_calculus(self, interaction: nextcord.Interaction):
+        pass # Sub-subcommands will be added here
+
+    @solve_calculus.subcommand(name="diff", description="Calculates the derivative of an expression.")
+    async def solve_diff(self, interaction: nextcord.Interaction, expression: str, variable: str):
+        """Calculates the derivative of an expression via a slash command."""
+        try:
+            x = Symbol(variable)
+            result = diff(sympy.sympify(expression), x)
+            await interaction.response.send_message(f"The derivative of {expression} with respect to {variable} is: {result}")
+        except (sympy.parsing.mathematica.UnrecognizedSymbolException, sympy.SympifyError) as e:
+            await interaction.response.send_message(f"Invalid expression or variable: {e}")
+        except Exception as e:
+            await interaction.response.send_message(f"An unexpected error occurred: {e}")
+
+    @solve_calculus.subcommand(name="integrate", description="Calculates the integral of an expression.")
+    async def solve_integrate(self, interaction: nextcord.Interaction, expression: str, variable: str):
+        """Calculates the integral of an expression via a slash command."""
+        try:
+            x = Symbol(variable)
+            result = integrate(sympy.sympify(expression), x)
+            await interaction.response.send_message(f"The integral of {expression} with respect to {variable} is: {result}")
+        except (sympy.parsing.mathematica.UnrecognizedSymbolException, sympy.SympifyError) as e:
+            await interaction.response.send_message(f"Invalid expression or variable: {e}")
+        except Exception as e:
+            await interaction.response.send_message(f"An unexpected error occurred: {e}")
 
     @commands.command()
     async def solve(self, ctx, *, math_expression: str):
-        """Solves a mathematical expression using sympy."""
+        """Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate')."""
         try:
-            # Use sympy.sympify to parse the expression
+            if math_expression.startswith("diff "):
+                parts = math_expression.split()
+                if len(parts) >= 3:
+                    expression_str = parts[1]
+                    variable_str = parts[2]
+                    x = Symbol(variable_str)
+                    expression = sympy.sympify(expression_str)
+                    result = diff(expression, x)
+                    await ctx.send(f"The derivative of {expression_str} with respect to {variable_str} is: {result}")
+                else:
+                    await ctx.send("Invalid differentiation format. Use: `solve diff <expression> <variable>`")
+                return
+            elif math_expression.startswith("integrate "):
+                parts = math_expression.split()
+                if len(parts) >= 3:
+                    expression_str = parts[1]
+                    variable_str = parts[2]
+                    x = Symbol(variable_str)
+                    expression = sympy.sympify(expression_str)
+                    result = integrate(expression, x)
+                    await ctx.send(f"The integral of {expression_str} with respect to {variable_str} is: {result}")
+                else:
+                    await ctx.send("Invalid integration format. Use: `solve integrate <expression> <variable>`")
+                return
+
+            # Default to solving algebraic or numerical expressions
             expression = sympy.sympify(math_expression)
-            # Evaluate the expression to get a numerical result
             result = expression.evalf()
             await ctx.send(f"The result is: {result}")
         except (sympy.parsing.mathematica.UnrecognizedSymbolException, sympy.SympifyError) as e:
@@ -285,23 +354,57 @@ Moderation commands for this bot.
         except nextcord.HTTPException as e:
             await ctx.send(f"Error occurred while sending message: {e}")
         except Exception as e:
-            print(f"An unexpected error occurred in solve command: {e}")
-            await ctx.send("An unexpected error occurred.")
+            await ctx.send(f"An unexpected error occurred: {e}")
 
-    @nextcord.slash_command(name="solve", description="Solves a math expression.")
-    async def solve_slash(self, interaction: nextcord.Interaction, math_expression: str):
-        """Solves a mathematical expression using sympy via a slash command."""
-        try:
-            expression = sympy.sympify(math_expression)
-            result = expression.evalf()
-            await interaction.response.send_message(f"The result is: {result}")
-        except (sympy.parsing.mathematica.UnrecognizedSymbolException, sympy.SympifyError) as e:
-            await interaction.response.send_message(f"Invalid mathematical expression: {e}")
-        except nextcord.HTTPException as e:
-            await interaction.followup.send(f"Error occurred while sending message: {e}", ephemeral=True)
-        except Exception as e:
-            print(f"An unexpected error occurred in solve_slash command: {e}")
-            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
+    @commands.command()
+    async def whois(self, ctx, *, user: nextcord.Member = None):
+        """Returns information about a specific user."""
+        if user is None:
+            user = ctx.author
+
+        embed = nextcord.Embed(title=user.name, color=nextcord.Color.blue())
+        embed.set_thumbnail(url=user.display_avatar.url)
+        embed.add_field(name="User ID", value=user.id, inline=False)
+        embed.add_field(name="Discriminator", value=user.discriminator, inline=False)
+        embed.add_field(name="Account Created At", value=user.created_at.strftime("%Y-%m-%d %H:%M:%S UTC"), inline=False)
+
+        if isinstance(user, nextcord.Member) and ctx.guild:
+            embed.add_field(name="Nickname", value=user.nick if user.nick else "None", inline=False)
+            embed.add_field(name="Joined Server At", value=user.joined_at.strftime("%Y-%m-%d %H:%M:%S UTC"), inline=False)
+            roles = [role.name for role in user.roles if role != ctx.guild.default_role]
+            if roles:
+                embed.add_field(name="Roles", value=", ".join(roles), inline=False)
+            embed.add_field(name="Top Role", value=user.top_role.name, inline=False)
+            embed.add_field(name="Is Bot", value=user.bot, inline=False)
+            embed.add_field(name="Is Owner", value=user == ctx.guild.owner, inline=False)
+
+        await ctx.send(embed=embed)
+
+    @nextcord.slash_command(name="whois", description="Returns information about a specific user.")
+    async def whois_slash(self, interaction: nextcord.Interaction, user: nextcord.Member = nextcord.SlashOption(required=False)):
+        """Returns information about a specific user (slash command)."""
+        if user is None:
+            user = interaction.user
+
+        embed = nextcord.Embed(title=user.name, color=nextcord.Color.blue())
+        embed.set_thumbnail(url=user.display_avatar.url)
+        embed.add_field(name="User ID", value=user.id, inline=False)
+        embed.add_field(name="Discriminator", value=user.discriminator, inline=False)
+        embed.add_field(name="Account Created At", value=user.created_at.strftime("%Y-%m-%d %H:%M:%S UTC"), inline=False)
+
+        if interaction.guild:
+            member = interaction.guild.get_member(user.id)
+            if member:
+                embed.add_field(name="Nickname", value=member.nick if member.nick else "None", inline=False)
+                embed.add_field(name="Joined Server At", value=member.joined_at.strftime("%Y-%m-%d %H:%M:%S UTC"), inline=False)
+                roles = [role.name for role in member.roles if role != interaction.guild.default_role]
+                if roles:
+                    embed.add_field(name="Roles", value=", ".join(roles), inline=False)
+                embed.add_field(name="Top Role", value=member.top_role.name, inline=False)
+                embed.add_field(name="Is Bot", value=member.bot, inline=False)
+                embed.add_field(name="Is Owner", value=member == interaction.guild.owner, inline=False)
+
+        await interaction.response.send_message(embed=embed)
 
 def setup(bot):
     bot.add_cog(MiscCommands(bot))
