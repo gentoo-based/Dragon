@@ -18,7 +18,7 @@ class Vidss(commands.Cog):
             return
         
         try:
-            video_file = nextcord.File(video_filename)
+            video_file = nextcord.File(f"{video_filename}.mp4")
             await ctx.send(file=video_file)
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
