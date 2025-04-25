@@ -1,6 +1,7 @@
 import os
 import random
 from typing import Final
+import discord_ios
 import nextcord
 from nextcord import Interaction
 from nextcord.ext import commands
@@ -11,15 +12,14 @@ keep_alive()
 
 
 intents = nextcord.Intents.all()
-bot = commands.Bot(command_prefix='l!', intents=intents)
+bot = commands.Bot(command_prefix='td!', intents=intents)
 bot.help_command = None
 
 @bot.event
 async def on_ready():
    print('Logged in as {}'.format(bot.user.name))
-   game = nextcord.Game("l!help")
+   game = nextcord.Game("td!help")
    await bot.change_presence(
-     status=nextcord.Status.do_not_disturb, 
      activity=game
    )
 
