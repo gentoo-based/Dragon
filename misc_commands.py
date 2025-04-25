@@ -143,7 +143,7 @@ class MiscCommands(commands.Cog):
         try:
             embed = nextcord.Embed(
                 title="About the Bot",
-                description="""This is a fun bot with various commands.
+                description=f"""This is a fun bot with various commands.
 
                 **Version**
                 3.5.4
@@ -151,8 +151,9 @@ class MiscCommands(commands.Cog):
                 **Author**
                 Made by <@1221614686865461259>
 
-                **Hosted by**
-                https://github.com/
+                **Hosted on**
+                {nextcord.ShardInfo.shard_count} Shards
+
                 """,
                 color=nextcord.Color.blue()
             )
@@ -169,7 +170,7 @@ class MiscCommands(commands.Cog):
         try:
             embed = nextcord.Embed(
                 title="About the Bot",
-                description="""This is a fun bot with various commands.
+                description=f"""This is a fun bot with various commands.
 
                 **Version**
                 3.5.4
@@ -177,8 +178,9 @@ class MiscCommands(commands.Cog):
                 **Author**
                 Made by <@1221614686865461259>
 
-                **Hosted by**
-                https://github.com/
+                **Hosted on**
+                {nextcord.ShardInfo.shard_count} Shards
+
                 """,
                 color=nextcord.Color.blue()
             )
@@ -196,26 +198,26 @@ class MiscCommands(commands.Cog):
             description = """
 __Fun Commands__
 Commands for entertainment.
-`l!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
-`l!joke`: Tells a random joke.
-`l!fact`: Shows a random fact.
-`l!roast <@member>`: Roasts the mentioned member.
-`l!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
-`l!video`: Sends any video in the bot's repository.
-`l!purge <amount>`: Deletes a specified number of messages.
+`td!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
+`td!joke`: Tells a random joke.
+`td!fact`: Shows a random fact.
+`td!roast <@member>`: Roasts the mentioned member.
+`td!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
+`td!video`: Sends any video in the bot's repository.
+`td!purge <amount>`: Deletes a specified number of messages.
 
 __Admin Commands__
 Moderation commands for server management.
-`l!ban <@member> [reason]`: Bans a member from the server.
-`l!kick <@member> [reason]`: Kicks a member from the server.
-`l!warn <@member> [reason]`: Warns a member.
-`l!clearwarns <@member>`: Clears the warnings of a user.
-`l!lock`: Locks the current channel.
-`l!unlock`: Unlocks the current channel.
-`l!addrole <@member> <role name>`: Adds a role to a user.
-`l!removerole <@member> <role name>`: Removes a role from a user.
-`l!slowmode <seconds>`: Sets a slow mode for the channel.
-`l!clear <amount>`: Clears a specified number of messages.
+`td!ban <@member> [reason]`: Bans a member from the server.
+`td!kick <@member> [reason]`: Kicks a member from the server.
+`td!warn <@member> [reason]`: Warns a member.
+`td!clearwarns <@member>`: Clears the warnings of a user.
+`td!lock`: Locks the current channel.
+`td!unlock`: Unlocks the current channel.
+`td!addrole <@member> <role name>`: Adds a role to a user.
+`td!removerole <@member> <role name>`: Removes a role from a user.
+`td!slowmode <seconds>`: Sets a slow mode for the channel.
+`td!clear <amount>`: Clears a specified number of messages.
 """
 
             embed = nextcord.Embed(
@@ -242,26 +244,26 @@ Moderation commands for server management.
         description = """
 __Fun Commands__
 Commands for entertainment.
-`l!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
-`l!joke`: Tells a random joke.
-`l!fact`: Shows a random fact.
-`l!roast <@member>`: Roasts the mentioned member.
-`l!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
-`l!video`: Sends any video in the bot's repository.
-`l!purge <amount>`: Deletes a specified number of messages.
+`td!roll [min] [max]`: Rolls a random number between the specified range (default 1-100).
+`td!joke`: Tells a random joke.
+`td!fact`: Shows a random fact.
+`td!roast <@member>`: Roasts the mentioned member.
+`td!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
+`td!video`: Sends any video in the bot's repository.
+`td!purge <amount>`: Deletes a specified number of messages.
 
 __Admin Commands__
 Moderation commands for server management.
-`l!ban <@member> [reason]`: Bans a member from the server.
-`l!kick <@member> [reason]`: Kicks a member from the server.
-`l!warn <@member> [reason]`: Warns a member.
-`l!clearwarns <@member>`: Clears the warnings of a user.
-`l!lock`: Locks the current channel.
-`l!unlock`: Unlocks the current channel.
-`l!addrole <@member> <role name>`: Adds a role to a user.
-`l!removerole <@member> <role name>`: Removes a role from a user.
-`l!slowmode <seconds>`: Sets a slow mode for the channel.
-`l!clear <amount>`: Clears a specified number of messages.
+`td!ban <@member> [reason]`: Bans a member from the server.
+`td!kick <@member> [reason]`: Kicks a member from the server.
+`td!warn <@member> [reason]`: Warns a member.
+`td!clearwarns <@member>`: Clears the warnings of a user.
+`td!lock`: Locks the current channel.
+`td!unlock`: Unlocks the current channel.
+`td!addrole <@member> <role name>`: Adds a role to a user.
+`td!removerole <@member> <role name>`: Removes a role from a user.
+`td!slowmode <seconds>`: Sets a slow mode for the channel.
+`td!clear <amount>`: Clears a specified number of messages.
 """
 
         embed = nextcord.Embed(
