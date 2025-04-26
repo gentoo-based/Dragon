@@ -143,17 +143,13 @@ class MiscCommands(commands.Cog):
         try:
             embed = nextcord.Embed(
                 title="About the Bot",
-                description=f"""This is a fun bot with various commands.
+                description=f"""This is a bot built on memes and various moderation commands.
 
                 **Version**
-                3.5.4
+                3.5.5
 
                 **Author**
                 Made by <@1221614686865461259>
-
-                **Hosted on**
-                {nextcord.ShardInfo.shard_count} Shards
-
                 """,
                 color=nextcord.Color.blue()
             )
@@ -170,17 +166,13 @@ class MiscCommands(commands.Cog):
         try:
             embed = nextcord.Embed(
                 title="About the Bot",
-                description=f"""This is a fun bot with various commands.
+                description=f"""This is a bot built on memes and various moderation commands.
 
                 **Version**
-                3.5.4
+                3.5.5
 
                 **Author**
                 Made by <@1221614686865461259>
-
-                **Hosted on**
-                {nextcord.ShardInfo.shard_count} Shards
-
                 """,
                 color=nextcord.Color.blue()
             )
@@ -364,7 +356,7 @@ Moderation commands for server management.
         if user is None:
             user = ctx.author
 
-        embed = nextcord.Embed(title=user.name, color=nextcord.Color.blue())
+        embed = nextcord.Embed(title=user.name, color=nextcord.Color.dark_gray())
         embed.set_thumbnail(url=user.display_avatar.url)
         embed.add_field(name="User ID", value=user.id, inline=False)
         embed.add_field(name="Discriminator", value=user.discriminator, inline=False)
@@ -388,7 +380,7 @@ Moderation commands for server management.
         if user is None:
             user = interaction.user
 
-        embed = nextcord.Embed(title=user.name, color=nextcord.Color.blue())
+        embed = nextcord.Embed(title=user.name, color=nextcord.Color.dark_gray())
         embed.set_thumbnail(url=user.display_avatar.url)
         embed.add_field(name="User ID", value=user.id, inline=False)
         embed.add_field(name="Discriminator", value=user.discriminator, inline=False)
