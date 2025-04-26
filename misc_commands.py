@@ -4,10 +4,34 @@ import random
 import sympy
 from sympy import Symbol, diff, integrate
 from sympy.parsing.mathematica import parse_mathematica
-
 class MiscCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def fly(self, ctx, Member: nextcord.Member):
+        """Deletes the command message and sends the provided message."""
+        if Member == None:
+            Member = ctx.author
+        try:
+            await ctx.send(f"Fly high {Member.mention}")
+            await ctx.send("https://tenor.com/view/angel-wings-fly-gif-14506801")
+        except nextcord.HTTPException as e:
+            await ctx.send(f"Error occurred while sending message: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred in echo_slash command: {e}")
+            await ctx.send("An unexpected error occurred.",)
+
+    @nextcord.slash_command(name="fly", description="Redbull gives you wings.")
+    async def fly_slash(self, interaction: nextcord.Interaction, Member: nextcord.Member):
+        try:
+            await interaction.response.send_message(f"Fly high {Member.mention}")
+            await interaction.followup.send("https://tenor.com/view/angel-wings-fly-gif-14506801")
+        except nextcord.HTTPException as e:
+            await interaction.followup.send(f"Error occurred while sending message: {e}", ephemeral=True)
+        except Exception as e:
+            print(f"An unexpected error occurred in echo_slash command: {e}")
+            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
 
     @commands.command()
     @commands.is_owner()
@@ -150,6 +174,12 @@ class MiscCommands(commands.Cog):
 
                 **Author**
                 Made by <@1221614686865461259>
+
+                **Open-sourced on**
+                https://github.com/gentoo-based/Dragon
+
+                **Self hosted**
+                Self hosted on a mid-end computer integrated with 32 shards in place, to prepare the bot for immense usage in the future.
                 """,
                 color=nextcord.Color.blue()
             )
@@ -173,6 +203,12 @@ class MiscCommands(commands.Cog):
 
                 **Author**
                 Made by <@1221614686865461259>
+
+                **Open-sourced on**
+                https://github.com/gentoo-based/Dragon
+
+                **Self hosted**
+                Self hosted on a mid-end computer integrated with 32 shards in place, to prepare the bot for immense usage in the future.
                 """,
                 color=nextcord.Color.blue()
             )
@@ -195,7 +231,7 @@ Commands for entertainment.
 `td!fact`: Shows a random fact.
 `td!roast <@member>`: Roasts the mentioned member.
 `td!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
-`td!video`: Sends any video in the bot's repository.
+`td!meme`: Sends any meme in the bot's repository.
 `td!purge <amount>`: Deletes a specified number of messages.
 
 __Admin Commands__
@@ -241,7 +277,7 @@ Commands for entertainment.
 `td!fact`: Shows a random fact.
 `td!roast <@member>`: Roasts the mentioned member.
 `td!solve <expression>`: Solves a mathematical expression (supports +, -, *, /, ^, basic functions, algebra, and basic calculus using prefixes like 'diff' and 'integrate').
-`td!video`: Sends any video in the bot's repository.
+`td!meme`: Sends any meme in the bot's repository.
 `td!purge <amount>`: Deletes a specified number of messages.
 
 __Admin Commands__

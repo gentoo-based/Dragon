@@ -29,7 +29,7 @@ class CogCommands(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def reload(self, ctx, cog):
+    async def reload(self, ctx, cog: str):
         """Deletes the command message and sends the provided message."""
         try:
             self.bot.unload_extension(cog)
