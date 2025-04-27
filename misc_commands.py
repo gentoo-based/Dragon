@@ -3,7 +3,6 @@ from nextcord.ext import commands
 import random
 import sympy
 from sympy import Symbol, diff, integrate
-from sympy.parsing.mathematica import parse_mathematica
 class MiscCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -23,7 +22,7 @@ class MiscCommands(commands.Cog):
             await ctx.send("An unexpected error occurred.",)
 
     @nextcord.slash_command(name="fly", description="Redbull gives you wings.")
-    async def fly_slash(self, interaction: nextcord.Interaction, Member: nextcord.Member):
+    async def fly_slash(self, interaction: nextcord.Interaction, Member: nextcord.Member = nextcord.SlashOption(description="Member to give redbull to")):
         try:
             await interaction.response.send_message(f"Fly high {Member.mention}")
             await interaction.followup.send("https://tenor.com/view/angel-wings-fly-gif-14506801")
@@ -49,7 +48,7 @@ class MiscCommands(commands.Cog):
             await ctx.send("An unexpected error occurred.")
 
     @nextcord.slash_command(name="echo", description="Echoes your message back to you.")
-    async def echo_slash(self, interaction: nextcord.Interaction, message: str):
+    async def echo_slash(self, interaction: nextcord.Interaction, message: str = nextcord.SlashOption(description="Message to relay back to you.")):
         """Echoes the provided message back to the user via a slash command."""
         try:
             await interaction.response.send_message(message)
@@ -143,7 +142,7 @@ class MiscCommands(commands.Cog):
             await ctx.send("An unexpected error occurred.")
 
     @nextcord.slash_command(name="roast", description="Tells a friendly roast to the mentioned member.")
-    async def roast_slash(self, interaction: nextcord.Interaction, member: nextcord.Member):
+    async def roast_slash(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to roast")):
         """Roasts the mentioned member via a slash command."""
         try:
             roasts = [
@@ -411,7 +410,7 @@ Moderation commands for server management.
         await ctx.send(embed=embed)
 
     @nextcord.slash_command(name="whois", description="Returns information about a specific user.")
-    async def whois_slash(self, interaction: nextcord.Interaction, user: nextcord.Member = nextcord.SlashOption(required=False)):
+    async def whois_slash(self, interaction: nextcord.Interaction, user: nextcord.Member = nextcord.SlashOption(required=False, description="Member to show information of.")):
         """Returns information about a specific user (slash command)."""
         if user is None:
             user = interaction.user

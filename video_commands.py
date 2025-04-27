@@ -19,12 +19,12 @@ class Vidss(commands.Cog):
         return None
 
     @commands.command()
-    async def meme(self, ctx, *, video_filename: str):
-        if self.is_blacklisted(video_filename):
+    async def meme(self, ctx, *, meme: str):
+        if self.is_blacklisted(meme):
             await ctx.send("This file is blacklisted and cannot be sent.")
             return
         
-        found_file = await self.find_file(video_filename)
+        found_file = await self.find_file(meme)
         if not found_file:
             await ctx.send("No file found with that name and supported extensions.")
             return
@@ -35,13 +35,13 @@ class Vidss(commands.Cog):
         except Exception as e:
             await ctx.send(f"An error occurred: {str(e)}")
 
-    @nextcord.slash_command(name="meme", description="Sends a video or GIF.")
-    async def video_slash(self, interaction: nextcord.Interaction, video_filename: str):
-        if self.is_blacklisted(video_filename):
+    @nextcord.slash_command(name="meme", description="Sends a meme within the formats of gif, mp4, and mov.")
+    async def memesl(self, interaction: nextcord.Interaction, *, meme: str = nextcord.SlashOption(description="Meme to display")):
+        if self.is_blacklisted(meme):
             await interaction.response.send_message("This file is blacklisted and cannot be sent.")
             return
         
-        found_file = await self.find_file(video_filename)
+        found_file = await self.find_file(meme)
         if not found_file:
             await interaction.response.send_message("No file found with that name and supported extensions.")
             return

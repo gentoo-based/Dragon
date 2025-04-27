@@ -11,10 +11,19 @@ class CogCommands(commands.Cog):
         """Deletes the command message and sends the provided message."""
         try:
             self.bot.unload_extension(cog)
+            await ctx.send("Unloaded the cog with no effort.")
         except Exception as e:
             await ctx.send(f"Cound not unload {cog}")
             return
         await ctx.send(f"Unloaded {cog}")
+    @nextcord.slash_command(name="unload", description="Unloads a cog to avoid rebooting.")
+    @commands.is_owner()
+    async def unloadsl(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to unload")):
+        try:
+            self.bot.unload_extension(cog)
+            await interaction.response.send_message("Unloaded the cog with no effort.", ephemeral=True)
+        except Exception as e:
+            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
 
     @commands.command()
     @commands.is_owner()
@@ -26,6 +35,14 @@ class CogCommands(commands.Cog):
             await ctx.send(f"Cound not load {cog}")
             return
         await ctx.send(f"Loaded {cog}")
+    @nextcord.slash_command(name="load", description="Loads a cog to avoid rebooting.")
+    @commands.is_owner()
+    async def loadsl(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to load")):
+        try:
+            self.bot.load_extension(cog)
+            await interaction.response.send_message("Loaded the cog with no effort.", ephemeral=True)
+        except Exception as e:
+            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
 
     @commands.command()
     @commands.is_owner()
@@ -40,11 +57,32 @@ class CogCommands(commands.Cog):
         await ctx.send(f"Restarted {cog}")
 
     @nextcord.slash_command(name="reload", description="Reloads a cog to avoid rebooting.")
-    async def reload(self, interaction: nextcord.Interaction, cog: str):
+    @commands.is_owner()
+    async def reload(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to reload")):
         try:
             self.bot.unload_extension(cog)
             self.bot.load_extension(cog)
-            await interaction.response.send_message("Reloaded the cog with no effort.")
+            await interaction.response.send_message("Reloaded the cog with no effort.", ephemeral=True)
+        except Exception as e:
+            await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
+
+    @commands.command()
+    @commands.is_owner()
+    async def sync(self, ctx):
+        """Deletes the command message and sends the provided message."""
+        try:
+            await self.bot.sync_application_commands()
+        except Exception as e:
+            await ctx.send(f"Synced the application commands with some errors.")
+            return
+        await ctx.send(f"Synced the application commands with no effort")
+
+    @nextcord.slash_command(name="sync", description="Syncs all the application commands.")
+    @commands.is_owner()
+    async def syncsl(self, interaction: nextcord.Interaction):
+        try:
+            await self.bot.sync_application_commands()
+            await interaction.response.send_message("Synced the application commands with no effort.", ephemeral=True)
         except Exception as e:
             await interaction.followup.send("An unexpected error occurred.", ephemeral=True)
 

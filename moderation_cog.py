@@ -25,7 +25,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="ban", description="Bans a member from the server")
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
-    async def slash_ban(self, interaction: nextcord.Interaction, member: nextcord.Member, *, reason=None):
+    async def slash_ban(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to ban"), *, reason=nextcord.SlashOption(description="Reason to ban")):
         """Bans a member from the server (slash command)."""
         try:
             await member.ban(reason=reason)
@@ -55,7 +55,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="kick", description="Kicks a member from the server")
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
-    async def slash_kick(self, interaction: nextcord.Interaction, member: nextcord.Member, *, reason=None):
+    async def slash_kick(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to kick"), *, reason=nextcord.SlashOption(description="Reason to kick")):
         """Kicks a member from the server (slash command)."""
         try:
             await member.kick(reason=reason)
@@ -181,7 +181,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="addrole", description="Adds a role to a user")
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
-    async def slash_addrole(self, interaction: nextcord.Interaction, member: nextcord.Member, role: nextcord.Role):
+    async def slash_addrole(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to add a role to"), role: nextcord.Role = nextcord.SlashOption(description="Role to add to the member to")):
         """Adds a role to a user (slash command)."""
         try:
             await member.add_roles(role)
@@ -211,7 +211,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="removerole", description="Removes a role from a user")
     @commands.has_permissions(manage_roles=True)
     @commands.bot_has_permissions(manage_roles=True)
-    async def slash_removerole(self, interaction: nextcord.Interaction, member: nextcord.Member, role: nextcord.Role):
+    async def slash_removerole(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to remove a role from a user"), role: nextcord.Role = nextcord.SlashOption(description="The role to be removed from a user")):
         """Removes a role from a user (slash command)."""
         try:
             await member.remove_roles(role)
@@ -244,7 +244,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="slowmode", description="Adds a slowmode to the channel")
     @commands.has_permissions(manage_channels=True)
     @commands.bot_has_permissions(manage_channels=True)
-    async def slash_slowmode(self, interaction: nextcord.Interaction, seconds: int):
+    async def slash_slowmode(self, interaction: nextcord.Interaction, seconds: int = nextcord.SlashOption(description="How long the slowmode lasts for each messages.")):
         """Adds a slowmode to the channel (slash command)."""
         try:
             if seconds < 0:
@@ -300,7 +300,7 @@ class ModerationCog(commands.Cog):
 
     @nextcord.slash_command(name="warn", description="Warns a user. 3 warnings = kick, 6 warnings = ban")
     @commands.has_permissions(kick_members=True, ban_members=True)
-    async def slash_warn(self, interaction: nextcord.Interaction, member: nextcord.Member, *, reason=None):
+    async def slash_warn(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to warn"), *, reason = nextcord.SlashOption(description="Reason to warn a member.")):
         """Warns a user. 3 warnings = kick, 6 warnings = ban (slash command)."""
         try:
             if member.bot:
@@ -356,7 +356,7 @@ class ModerationCog(commands.Cog):
 
     @nextcord.slash_command(name="clearwarns", description="Clears the warns of a user")
     @commands.has_permissions(kick_members=True, ban_members=True)
-    async def slash_clearwarns(self, interaction: nextcord.Interaction, member: nextcord.Member):
+    async def slash_clearwarns(self, interaction: nextcord.Interaction, member: nextcord.Member = nextcord.SlashOption(description="Member to clear warns of")):
         """Clears the warns of a user (slash command)."""
         try:
             if member in self.warn_count:
@@ -393,7 +393,7 @@ class ModerationCog(commands.Cog):
     @nextcord.slash_command(name="purge", description="Deletes a specified number of messages.")
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
-    async def purge_slash(self, interaction: nextcord.Interaction, amount: int):
+    async def purge_slash(self, interaction: nextcord.Interaction, amount: int = nextcord.SlashOption(description="Amount of messages to purge")):
         """Purges a specified number of messages from the channel (slash command)."""
         try:
             if amount <= 0:
