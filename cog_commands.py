@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class CogCommands(commands.Cog):
     def __init__(self, bot):
@@ -16,9 +16,9 @@ class CogCommands(commands.Cog):
             await ctx.send(f"Cound not unload {cog}")
             return
         await ctx.send(f"Unloaded {cog}")
-    @nextcord.slash_command(name="unload", description="Unloads a cog to avoid rebooting.")
+    @commands.slash_command(name="unload", description="Unloads a cog to avoid rebooting.")
     @commands.is_owner()
-    async def unloadsl(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to unload")):
+    async def unloadsl(self, interaction, cog: str = discord.Option(description="Cog to unload")):
         try:
             self.bot.unload_extension(cog)
             await interaction.response.send_message("Unloaded the cog with no effort.", ephemeral=True)
@@ -35,9 +35,9 @@ class CogCommands(commands.Cog):
             await ctx.send(f"Cound not load {cog}")
             return
         await ctx.send(f"Loaded {cog}")
-    @nextcord.slash_command(name="load", description="Loads a cog to avoid rebooting.")
+    @commands.slash_command(name="load", description="Loads a cog to avoid rebooting.")
     @commands.is_owner()
-    async def loadsl(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to load")):
+    async def loadsl(self, interaction, cog: str = discord.Option(description="Cog to load")):
         try:
             self.bot.load_extension(cog)
             await interaction.response.send_message("Loaded the cog with no effort.", ephemeral=True)
@@ -56,9 +56,9 @@ class CogCommands(commands.Cog):
             return
         await ctx.send(f"Restarted {cog}")
 
-    @nextcord.slash_command(name="reload", description="Reloads a cog to avoid rebooting.")
+    @commands.slash_command(name="reload", description="Reloads a cog to avoid rebooting.")
     @commands.is_owner()
-    async def reload(self, interaction: nextcord.Interaction, cog: str = nextcord.SlashOption(description="Cog to reload")):
+    async def reload(self, interaction, cog: str):
         try:
             self.bot.unload_extension(cog)
             self.bot.load_extension(cog)
@@ -77,9 +77,9 @@ class CogCommands(commands.Cog):
             return
         await ctx.send(f"Synced the application commands with no effort")
 
-    @nextcord.slash_command(name="sync", description="Syncs all the application commands.")
+    @commands.slash_command(name="sync", description="Syncs all the application commands.")
     @commands.is_owner()
-    async def syncsl(self, interaction: nextcord.Interaction):
+    async def syncsl(self, interaction):
         try:
             await self.bot.sync_application_commands()
             await interaction.response.send_message("Synced the application commands with no effort.", ephemeral=True)

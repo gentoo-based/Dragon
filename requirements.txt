@@ -2,3 +2,4 @@ nextcord
 flask
 typing
 python-dotenv
+sympy
